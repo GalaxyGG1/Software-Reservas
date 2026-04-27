@@ -1,5 +1,5 @@
 # ----------------------------------------
-# Build artifacts
+# Visual Studio / build artifacts
 # ----------------------------------------
 bin/
 obj/
@@ -9,29 +9,22 @@ obj/
 .vs/
 
 # ----------------------------------------
-# NuGet (use restore on the consumer side)
+# NuGet
 # ----------------------------------------
 packages/
 *.nupkg
 
 # ----------------------------------------
-# IDE / OS
+# Sistema operativo / editores
 # ----------------------------------------
 Thumbs.db
 *.swp
 
 # ----------------------------------------
-# Internos / no entregables
+# Documentos de trabajo (no entregables)
 # ----------------------------------------
-CLAUDE.md
 docs/
 plans/
-.claude/
-.remember/
-
-# Enunciado original (proporcionado por el profesor)
 Proyecto Final.docx
-
-# Scripts SQL no requeridos en la entrega
 Base de Datos/HotelDB_Fase1_Migracion.sql
 Base de Datos/HotelDB_SeedData.sql
