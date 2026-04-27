@@ -1,0 +1,166 @@
+================================================================
+  PROYECTO FINAL - SISTEMA DE RESERVAS DE HOTEL
+  Desarrollado por: Kelvin Del Castillo, Gabriel Galasso y Camila Vasquez
+================================================================
+
+----------------------------------------------------------------
+  DESCRIPCION DEL PROYECTO
+----------------------------------------------------------------
+
+Sistema de escritorio desarrollado en C# (Windows Forms) con base
+de datos SQL Server. Permite gestionar reservas hoteleras con
+control de acceso por roles, modulos de clientes, habitaciones,
+facturas, servicios adicionales, reportes y administracion.
+
+----------------------------------------------------------------
+  REQUISITOS DEL SISTEMA
+----------------------------------------------------------------
+
+  - Windows 10 / 11
+  - Visual Studio 2019 o superior (con soporte para .NET Framework 4.8)
+  - SQL Server (cualquier edicion, incluyendo Express)
+  - SQL Server Management Studio (SSMS)
+
+----------------------------------------------------------------
+  PASOS PARA EJECUTAR EL PROYECTO
+----------------------------------------------------------------
+
+  1. Abrir SQL Server Management Studio (SSMS).
+
+  2. Ejecutar UNICAMENTE el script:
+
+        Base de Datos\HotelDB_Proyecto_Final.sql
+
+     Este script crea la base de datos completa, todas las tablas,
+     indices, funciones, procedimientos almacenados, triggers,
+     vistas y los datos de prueba. No requiere ningun script
+     adicional.
+
+     (Opcional) Si quieres mas datos de prueba, puedes ejecutar
+     ademas:
+
+        Base de Datos\HotelDB_SeedData.sql
+
+  3. Verificar el nombre de tu servidor SQL Server.
+     (Se puede ver en la pantalla de conexion de SSMS)
+
+  4. Abrir la solucion en Visual Studio:
+
+        HotelReservas.slnx
+
+  5. Abrir el archivo:
+
+        HotelReservas\Database.cs
+
+  6. Buscar la cadena de conexion (linea 9-10) y cambiar el
+     nombre del servidor por el tuyo:
+
+        Antes:  Server=LAPTOP-B1972UH7;
+        Despues: Server=TU_NOMBRE_DE_SERVIDOR;
+
+     Ejemplo completo:
+        @"Server=MI-PC\SQLEXPRESS;Database=HotelDB;Trusted_Connection=True;"
+
+  7. Guardar los cambios y ejecutar el proyecto (F5).
+
+----------------------------------------------------------------
+  USUARIOS DE PRUEBA
+----------------------------------------------------------------
+
+  Usuario          Contrasena    Rol
+  ─────────────────────────────────────────
+  admin            123456        ADMIN
+  gg.admin         123456        ADMIN
+  recepcion1       1234          RECEPCION
+  recepcion2       4321          RECEPCION
+  empleado1        1234          EMPLEADO
+  soporte1         123456        SOPORTE
+
+  Nota: las contrasenas se almacenan hasheadas con SHA256.
+        El script las inserta ya hasheadas.
+
+----------------------------------------------------------------
+  MODULOS DEL SISTEMA
+----------------------------------------------------------------
+
+  Modulo                Roles con acceso
+  ─────────────────────────────────────────────────────────────
+  Clientes              Todos
+  Habitaciones          Todos
+  Reservas              Todos
+  Facturas              Todos
+  Check-in / Check-out  ADMIN, RECEPCION
+  Mantenimiento         ADMIN, SOPORTE
+  Informes/Rendimiento  Solo ADMIN
+  Administracion        ADMIN y SOPORTE
+  Configuracion         Solo ADMIN
+  Cerrar sesion         Todos
+
+----------------------------------------------------------------
+  ESTRUCTURA DE ARCHIVOS
+----------------------------------------------------------------
+
+  HotelReservas\
+  ├── Program.cs                    Punto de entrada
+  ├── Database.cs                   Conexion a SQL Server
+  ├── SesionUsuario.cs              Datos del usuario en sesion
+  ├── LoginForm.cs                  Pantalla de inicio de sesion
+  ├── MainForm.cs                   Panel principal con menu lateral
+  ├── ClientesForm.cs               Gestion de clientes
+  ├── HabitacionesForm.cs           Gestion de habitaciones
+  ├── TiposHabitacionForm.cs        Tipos de habitacion
+  ├── ReservasForm.cs               Gestion de reservas
+  ├── ReservasExtrasData.cs         Servicios y promociones por reserva
+  ├── FacturasForm.cs               Facturacion
+  ├── ServiciosAdicionalesForm.cs   Servicios adicionales
+  ├── PromocionesForm.cs            Promociones
+  ├── SucursalesForm.cs             Sucursales
+  ├── ReportesForm.cs               Reportes e informes
+  ├── ReportesData.cs               Datos para reportes
+  ├── AdministracionForm.cs         Empleados y usuarios
+  ├── AdministracionData.cs         Datos de administracion
+  ├── DashboardForm.cs              KPIs en tiempo real
+  ├── MantenimientoForm.cs          Mantenimientos de habitaciones
+  ├── ConfiguracionForm.cs          Parametros del sistema
+  ├── NotificacionesForm.cs         Notificaciones internas
+  ├── RatingForm.cs                 Valoraciones por reserva
+  ├── CheckInOutData.cs             Logica de check-in/out
+  ├── FacturaPdfExporter.cs         Export PDF (iTextSharp)
+  ├── ExportHelper.cs               Export Excel (EPPlus)
+  └── Assets\Theme.cs               Gestor de temas (claro/oscuro)
+
+  Base de Datos\
+  ├── HotelDB_Proyecto_Final.sql    Script completo unico (REQUERIDO)
+  ├── HotelDB_SeedData.sql          Datos extra opcionales
+  └── HotelDB_Fase1_Migracion.sql   Migracion historica (NO USAR — incluido ya en el principal)
+
+----------------------------------------------------------------
+  TEMAS VISUALES
+----------------------------------------------------------------
+
+  El sistema soporta MODO OSCURO (predeterminado) y MODO CLARO.
+
+  MODO OSCURO:
+    - Fondo:           Negro profundo  (#0D1117)
+    - Panel lateral:   Azul marino     (#0F2547)
+    - Botones de menu: Azul marino     (#1A3A6B)
+    - Acento / CTA:    Amarillo        (#F5C518)
+    - Texto:           Blanco          (#FFFFFF)
+    - Barra de estado: Azul muy oscuro (#060E1F)
+
+  MODO CLARO:
+    - Fondo:           Blanco          (#FFFFFF)
+    - Panel lateral:   Azul claro      (#DDEEFF)
+    - Botones de menu: Azul cielo      (#5BA3D9)
+    - Acento / CTA:    Naranja         (#FF7A2F)
+    - Texto:           Azul marino     (#0F2547)
+    - Barra de estado: Azul marino     (#0F2547)
+
+  COMO CAMBIAR EL TEMA:
+    - En la pantalla de login:  boton "Modo Claro / Modo Oscuro"
+                                (esquina superior derecha)
+    - En el panel principal:    boton "Modo Claro / Modo Oscuro"
+                                (parte inferior del menu lateral)
+    - El tema se aplica al instante sin necesidad de reiniciar.
+
+================================================================
